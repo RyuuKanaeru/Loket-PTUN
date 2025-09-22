@@ -25,12 +25,32 @@ class Loket extends Model
     }
 
     /**
-     * Increment and get the next queue number
+     * Get antrian that are waiting
      */
-    public function getNextNumber(): int
+    public function antrianMenunggu(): HasMany
     {
-        $this->increment('nomor_terakhir');
-        return $this->nomor_terakhir;
+        return $this->hasMany(Antrian::class)
+                    ->where('status', 'menunggu')
+                    ->orderBy('nomor');
+    }
+
+    /**
+     * Get antrian that are currently being called
+     */
+    public function antrianCalling(): HasMany
+    {
+        return $this->hasMany(Antrian::class)
+                    ->where('status', 'calling');
+    }
+
+    /**
+     * Get completed antrian history
+     */
+    public function riwayat(): HasMany
+    {
+        return $this->hasMany(Antrian::class)
+                    ->where('status', 'selesai')
+                    ->orderBy('updated_at', 'desc');
     }
 
     /**
@@ -38,9 +58,15 @@ class Loket extends Model
      */
     public function getCurrentWaitingAntrian()
     {
-        return $this->antrians()
-            ->where('status', 'menunggu')
-            ->orderBy('nomor')
-            ->first();
+        return $this->antrianMenunggu()->first();
+    }
+
+    /**
+     * Increment and get the next queue number
+     */
+    public function getNextNumber(): int
+    {
+        $this->increment('nomor_terakhir');
+        return $this->nomor_terakhir;
     }
 }

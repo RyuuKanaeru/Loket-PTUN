@@ -1,0 +1,56 @@
+
+        body {
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 280px;
+            background: #2c3e50;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 100;
+        }
+        .main-content {
+            margin-left: 280px;
+            padding: 20px;
+        }
+        .sidebar-link {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: #34495e;
+            border-left-color: #3498db;
+            color: white;
+        }
+        .current-number {
+            font-size: 72px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 20px 0;
+        }
+        .queue-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .calling {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0.5; }
+        }
+        .history-table {
+            font-size: 0.9rem;
+        }
+        .btn-done {
+            transition: all 0.3s;
+        }
+        .btn-done:hover {
+            transform: scale(1.05);
+        }

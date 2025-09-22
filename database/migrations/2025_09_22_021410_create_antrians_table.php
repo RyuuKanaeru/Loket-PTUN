@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('loket_id')->constrained()->cascadeOnDelete(); 
             $table->integer('nomor'); // nomor antrian
-            $table->enum('status', ['menunggu', 'dipanggil'])->default('menunggu'); 
+            $table->enum('status', ['menunggu', 'calling', 'selesai'])->default('menunggu'); 
             $table->timestamps();
         });
     }

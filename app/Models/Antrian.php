@@ -31,7 +31,7 @@ class Antrian extends Model
      */
     public function markAsCalled(): void
     {
-        $this->status = 'dipanggil';
+        $this->status = 'calling';
         $this->save();
     }
 
@@ -48,6 +48,6 @@ class Antrian extends Model
      */
     public function isCalled(): bool
     {
-        return $this->status === 'dipanggil';
+        return $this->status === 'calling';
     }
 }
