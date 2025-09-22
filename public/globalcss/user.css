@@ -36,9 +36,11 @@
             text-align: center;
             z-index: 1000;
         }
-        .success-popup .number {
-            font-size: 48px;
+        .swal2-html-container .number {
+            font-size: 90px;
             font-weight: bold;
             color: #0d6efd;
             margin: 20px 0;
         }
+
+        
