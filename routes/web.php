@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoketAdminController;
 use App\Http\Controllers\UserInterfaceController;
+use App\Http\Controllers\DisplayController;
 
 // Redirect home to user interface
 Route::get('/', [UserInterfaceController::class, 'index'])->name('home');
@@ -23,3 +24,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/loket/{loket}/mark-done', [LoketAdminController::class, 'markAsDone'])->name('admin.mark-done');
     Route::put('/loket/{loket}', [LoketAdminController::class, 'updateLoket'])->name('admin.update-loket');
 });
+
+
+// Display routes
+Route::get('/display', [DisplayController::class, 'index'])->name('display.index');
+Route::get('/display/data', [DisplayController::class, 'data'])->name('display.data');
