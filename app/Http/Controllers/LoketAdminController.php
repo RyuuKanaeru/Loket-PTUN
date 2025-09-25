@@ -94,7 +94,7 @@ class LoketAdminController extends Controller
             
             return response()->json([
                 'success' => true,
-                'nomor' => $current->nomor,
+                'nomor' => $current->formatted_nomor,
                 'loket' => $loket->nama
             ]);
         }

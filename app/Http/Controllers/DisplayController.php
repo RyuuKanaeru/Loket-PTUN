@@ -25,7 +25,7 @@ class DisplayController extends Controller
             return [
                 'id' => $loket->id,
                 'nama' => $loket->nama,
-                'nomor' => $calling ? $calling->nomor : null,
+                'nomor' => $calling ? $calling->formatted_nomor : null,
                 'updated_at' => $calling ? $calling->updated_at->toDateTimeString() : null,
             ];
         });

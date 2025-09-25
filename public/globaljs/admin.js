@@ -59,7 +59,7 @@ function callNext(loketId) {
             refreshData();
             // Text to speech
             const msg = new SpeechSynthesisUtterance();
-            msg.text = `Nomor antrian ${data.nomor}, silahkan menuju ${data.loket}`;
+            msg.text = `Nomor antrian ${data.nomor.split('').join(' ')}, silahkan menuju ${data.loket}`;
             msg.lang = 'id-ID';
             window.speechSynthesis.speak(msg);
         } else {

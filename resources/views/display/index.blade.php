@@ -104,7 +104,7 @@
                 setTimeout(() => box.classList.remove('highlight'), 900);
 
                 // speak
-                speak(`Loket ${l.nama.replace(/[^a-z0-9 ]/ig,'')}, nomor ${next}`);
+                speak(`Loket ${l.nama.replace(/[^a-z0-9 ]/ig,'')}, nomor ${next.split('').join(' ')}`);
             }
 
             // update cache

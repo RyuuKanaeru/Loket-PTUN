@@ -25,16 +25,6 @@ class Antrian extends Model
      */
     public function getFormattedNomorAttribute()
     {
-        // Mapping prefix berdasarkan ID loket
-        $prefixMap = [
-            1 => 'A',
-            2 => 'B',
-            3 => 'C',
-            4 => 'D',
-            5 => 'E',
-        ];
-
-        $prefix = $prefixMap[$this->loket_id] ?? 'X';
-        return $prefix . str_pad($this->nomor, 3, '0', STR_PAD_LEFT);
+        return $this->loket->kode_prefix . str_pad($this->nomor, 3, '0', STR_PAD_LEFT);
     }
 }
