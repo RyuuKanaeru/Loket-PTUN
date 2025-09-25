@@ -80,15 +80,24 @@
     function renderLokets(lokets) {
         if (!lokets.length) return;
 
-        // Anggap loket pertama di API = loket aktif
-        const active = lokets[0];
-        const others = lokets.slice(1);
+        // Cari loket yang baru saja update (untuk tampilan dan suara)
+        let latestUpdatedLoket = null;
+        let latestTimestamp = null;
 
-        // Render active
+        lokets.forEach(loket => {
+            if (loket.nomor && loket.updated_at) {
+                if (!latestTimestamp || new Date(loket.updated_at) > new Date(latestTimestamp)) {
+                    latestTimestamp = loket.updated_at;
+                    latestUpdatedLoket = loket;
+                }
+            }
+        });
+
+        // Update panel utama dengan nomor yang terakhir dipanggil
         const nomorEl = activeBox.querySelector('.nomor');
         const nameEl = activeBox.querySelector('.loket-name');
-        const prev = current[active.id] ?? null;
-        const next = active.nomor;
+        const prev = latestUpdatedLoket ? (current[latestUpdatedLoket.id] ?? null) : null;
+        const next = latestUpdatedLoket ? latestUpdatedLoket.nomor : null;
 
         if (next === null) {
             nomorEl.classList.add('empty');
@@ -97,19 +106,24 @@
             nomorEl.classList.remove('empty');
             nomorEl.textContent = next;
         }
-        nameEl.textContent = active.nama;
+        nameEl.textContent = latestUpdatedLoket ? latestUpdatedLoket.nama : '—';
 
-        if (prev === null && next !== null || (prev !== null && String(prev) !== String(next))) {
+        // Jika ini adalah update baru, tampilkan efek dan mainkan suara
+        if (latestUpdatedLoket && (prev === null && next !== null || (prev !== null && String(prev) !== String(next)))) {
             activeBox.classList.add('highlight');
             setTimeout(() => activeBox.classList.remove('highlight'), 900);
-            speak(`Loket ${active.nama.replace(/[^a-z0-9 ]/ig,'')}, nomor ${next?.split('').join(' ')}`);
+            if (next) {
+                speak(`Loket ${latestUpdatedLoket.nama.replace(/[^a-z0-9 ]/ig,'')}, nomor ${next.split('').join(' ')}`);
+            }
         }
-        current[active.id] = next;
+        if (latestUpdatedLoket) {
+            current[latestUpdatedLoket.id] = next;
+        }
 
-        // Render others
+        // Render semua status loket di sidebar
         sideList.querySelectorAll('.side-item').forEach(item => {
             const id = item.dataset.loketId;
-            const loket = others.find(l => String(l.id) === id);
+            const loket = lokets.find(l => String(l.id) === id);
             const nomorEl = item.querySelector('.nomor');
 
             if (!loket || loket.nomor === null) {

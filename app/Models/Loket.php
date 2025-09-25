@@ -73,9 +73,9 @@ class Loket extends Model
     /**
      * Naikkan nomor terakhir +1, lalu kembalikan dalam format A001, B002, dll.
      */
-    public function getNextNumber(): string
+    public function getNextNumber()
     {
         $this->increment('nomor_terakhir');
-        return $this->kode_prefix . str_pad($this->nomor_terakhir, 3, '0', STR_PAD_LEFT);
+        return $this->nomor_terakhir;
     }
 }

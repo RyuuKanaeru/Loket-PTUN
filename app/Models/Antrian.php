@@ -15,6 +15,8 @@ class Antrian extends Model
         'status',
     ];
 
+    protected $appends = ['formatted_nomor'];
+
     public function loket()
     {
         return $this->belongsTo(Loket::class);

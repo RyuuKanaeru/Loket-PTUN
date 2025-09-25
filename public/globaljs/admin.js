@@ -17,7 +17,7 @@ function updateUI(data) {
     // Update current number
     const currentNumber = document.getElementById('currentNumber');
     if (data.antrian_calling) {
-        currentNumber.textContent = data.antrian_calling.nomor;
+        currentNumber.textContent = data.antrian_calling.formatted_nomor;
         currentNumber.classList.add('calling');
     } else {
         currentNumber.textContent = '-';
@@ -28,7 +28,7 @@ function updateUI(data) {
     const waitingList = document.getElementById('waitingList');
     waitingList.innerHTML = data.antrian_menunggu.map(antrian => `
         <div class="d-flex justify-content-between align-items-center mb-2 p-2 border-bottom">
-            <span class="fs-5">Nomor ${antrian.nomor}</span>
+            <span class="fs-5">Nomor ${antrian.formatted_nomor}</span>
             <span class="badge bg-warning">Menunggu</span>
         </div>
     `).join('');
@@ -37,7 +37,7 @@ function updateUI(data) {
     const historyTable = document.querySelector('#historyTable tbody');
     historyTable.innerHTML = data.riwayat.map(antrian => `
         <tr>
-            <td>${antrian.nomor}</td>
+            <td>${antrian.formatted_nomor}</td>
             <td><span class="badge bg-success">Selesai</span></td>
             <td>${new Date(antrian.updated_at).toLocaleTimeString()}</td>
         </tr>
