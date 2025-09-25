@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="utf-8" />
@@ -20,29 +20,42 @@
         </div>
 
         <div class="grid" id="grid">
-            {{-- Optional initial items for progressive enhancement --}}
-            @foreach($lokets as $loket)
-                <div class="box" data-loket-id="{{ $loket->id }}">
-                    <div class="loket-name">{{ $loket->nama }}</div>
-                    <div class="nomor empty">-</div>
-                </div>
-            @endforeach
+            <!-- Loket aktif di kiri -->
+            <div class="big-box" id="activeBox">
+                <div class="nomor empty">-</div>
+                <div class="loket-name">—</div>
+            </div>
+
+            <!-- Loket lain di kanan -->
+            <div class="side-list" id="sideList">
+                @foreach($lokets as $loket)
+                    <div class="side-item" data-loket-id="{{ $loket->id }}">
+                        <span>{{ $loket->nama }}</span>
+                        <span class="nomor small empty">-</span>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="footer">
+            Berikutnya: <span id="nextQueue">—</span>
         </div>
     </div>
 
 <script>
 (() => {
-    const DATA_URL = "{{ route('display.data') }}"; // endpoint untuk polling
-    const POLL_INTERVAL = 3000; // ms
-    const grid = document.getElementById('grid');
+    const DATA_URL = "{{ route('display.data') }}";
+    const POLL_INTERVAL = 3000;
+    const activeBox = document.getElementById('activeBox');
+    const sideList = document.getElementById('sideList');
     const lastUpdated = document.getElementById('lastUpdated');
     const toggleVoiceBtn = document.getElementById('toggleVoice');
     const forceRefreshBtn = document.getElementById('forceRefresh');
+    const nextQueueEl = document.getElementById('nextQueue');
 
-    // store current shown numbers to detect perubahan
     const current = {};
-
     let voiceEnabled = false;
+
     toggleVoiceBtn.addEventListener('click', () => {
         voiceEnabled = !voiceEnabled;
         toggleVoiceBtn.textContent = voiceEnabled ? 'Voice: On' : 'Voice: Off';
@@ -64,52 +77,52 @@
         }
     }
 
-    function findBoxById(id) {
-        return grid.querySelector(`.box[data-loket-id="${id}"]`);
-    }
-
     function renderLokets(lokets) {
-        lokets.forEach(l => {
-            const id = l.id;
-            const box = findBoxById(id);
-            if (!box) {
-                // jika belum ada, buat kotak baru (output safety)
-                const newBox = document.createElement('div');
-                newBox.className = 'box';
-                newBox.setAttribute('data-loket-id', id);
-                newBox.innerHTML = `<div class="loket-name">${l.nama}</div><div class="nomor ${l.nomor===null ? 'empty' : ''}">${l.nomor===null ? '-' : l.nomor}</div>`;
-                grid.appendChild(newBox);
-                if (l.nomor !== null) {
-                    current[id] = l.nomor;
-                }
-                return;
-            }
+        if (!lokets.length) return;
 
-            const nomorEl = box.querySelector('.nomor');
-            const prev = current[id] ?? null;
-            const next = l.nomor;
+        // Anggap loket pertama di API = loket aktif
+        const active = lokets[0];
+        const others = lokets.slice(1);
 
-            if (next === null) {
+        // Render active
+        const nomorEl = activeBox.querySelector('.nomor');
+        const nameEl = activeBox.querySelector('.loket-name');
+        const prev = current[active.id] ?? null;
+        const next = active.nomor;
+
+        if (next === null) {
+            nomorEl.classList.add('empty');
+            nomorEl.textContent = '-';
+        } else {
+            nomorEl.classList.remove('empty');
+            nomorEl.textContent = next;
+        }
+        nameEl.textContent = active.nama;
+
+        if (prev === null && next !== null || (prev !== null && String(prev) !== String(next))) {
+            activeBox.classList.add('highlight');
+            setTimeout(() => activeBox.classList.remove('highlight'), 900);
+            speak(`Loket ${active.nama.replace(/[^a-z0-9 ]/ig,'')}, nomor ${next?.split('').join(' ')}`);
+        }
+        current[active.id] = next;
+
+        // Render others
+        sideList.querySelectorAll('.side-item').forEach(item => {
+            const id = item.dataset.loketId;
+            const loket = others.find(l => String(l.id) === id);
+            const nomorEl = item.querySelector('.nomor');
+
+            if (!loket || loket.nomor === null) {
                 nomorEl.classList.add('empty');
                 nomorEl.textContent = '-';
             } else {
                 nomorEl.classList.remove('empty');
-                nomorEl.textContent = next;
+                nomorEl.textContent = loket.nomor;
             }
-
-            // jika berubah — tambahkan highlight dan suara
-            if (prev === null && next !== null || (prev !== null && String(prev) !== String(next))) {
-                // visual highlight
-                box.classList.add('highlight');
-                setTimeout(() => box.classList.remove('highlight'), 900);
-
-                // speak
-                speak(`Loket ${l.nama.replace(/[^a-z0-9 ]/ig,'')}, nomor ${next.split('').join(' ')}`);
-            }
-
-            // update cache
-            current[id] = next;
         });
+
+        // contoh: nextQueue bisa ambil dari data API kalau ada
+        nextQueueEl.textContent = lokets.filter(l => l.nomor).map(l => l.nomor).slice(1,4).join(' | ');
     }
 
     async function fetchAndRender() {
@@ -126,11 +139,9 @@
         }
     }
 
-    // init: immediate fetch + polling
     fetchAndRender();
     setInterval(fetchAndRender, POLL_INTERVAL);
 
-    // keyboard shortcuts (optional): tekan "v" utk toggle voice
     window.addEventListener('keydown', (e) => {
         if (e.key.toLowerCase() === 'v') {
             toggleVoiceBtn.click();
