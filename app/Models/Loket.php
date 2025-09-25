@@ -10,6 +10,7 @@ class Loket extends Model
     protected $fillable = [
         'nama',
         'nomor_terakhir',
+        'kode_prefix', // tambahin biar bisa mass assign
     ];
 
     protected $casts = [
@@ -17,7 +18,7 @@ class Loket extends Model
     ];
 
     /**
-     * Get all antrian for this loket
+     * Relasi: semua antrian dari loket ini
      */
     public function antrians(): HasMany
     {
@@ -25,7 +26,7 @@ class Loket extends Model
     }
 
     /**
-     * Get antrian that are waiting
+     * Relasi: antrian yang menunggu
      */
     public function antrianMenunggu(): HasMany
     {
@@ -35,7 +36,7 @@ class Loket extends Model
     }
 
     /**
-     * Get antrian that are currently being called
+     * Relasi: antrian yang sedang dipanggil
      */
     public function antrianCalling(): HasMany
     {
@@ -44,7 +45,7 @@ class Loket extends Model
     }
 
     /**
-     * Get completed antrian history
+     * Relasi: riwayat antrian yang sudah selesai
      */
     public function riwayat(): HasMany
     {
@@ -54,7 +55,7 @@ class Loket extends Model
     }
 
     /**
-     * Get current waiting antrian
+     * Ambil antrian pertama yang sedang menunggu
      */
     public function getCurrentWaitingAntrian()
     {
@@ -62,11 +63,19 @@ class Loket extends Model
     }
 
     /**
-     * Increment and get the next queue number
+     * Ambil nomor antrian terakhir dalam format A001, B002, dll.
      */
-    public function getNextNumber(): int
+    public function getNomorAntrianAttribute(): string
+    {
+        return $this->kode_prefix . str_pad($this->nomor_terakhir, 3, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Naikkan nomor terakhir +1, lalu kembalikan dalam format A001, B002, dll.
+     */
+    public function getNextNumber(): string
     {
         $this->increment('nomor_terakhir');
-        return $this->nomor_terakhir;
+        return $this->kode_prefix . str_pad($this->nomor_terakhir, 3, '0', STR_PAD_LEFT);
     }
 }

@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Panel - Sistem Antrian</title>
-    <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="{{ asset('globalcss/admin.css') }}" rel="stylesheet">
-    
 </head>
 <body class="bg-light">
     <!-- Sidebar -->
@@ -55,7 +51,7 @@
                             <h4 class="text-muted mb-3">Nomor yang Sedang Dipanggil</h4>
                             <div id="currentNumber" class="current-number {{ $selectedLoket->antrianCalling->first() ? 'calling' : '' }}">
                                 @if($selectedLoket->antrianCalling->first())
-                                    {{ $selectedLoket->antrianCalling->first()->nomor }}
+                                    {{ $selectedLoket->antrianCalling->first()->formatted_nomor }}
                                 @else
                                     -
                                 @endif
@@ -80,7 +76,7 @@
                             <div class="queue-list" id="waitingList">
                                 @foreach($selectedLoket->antrianMenunggu as $antrian)
                                 <div class="d-flex justify-content-between align-items-center mb-2 p-2 border-bottom">
-                                    <span class="fs-5">Nomor {{ $antrian->nomor }}</span>
+                                    <span class="fs-5">Nomor {{ $antrian->formatted_nomor }}</span>
                                     <span class="badge bg-warning">Menunggu</span>
                                 </div>
                                 @endforeach
@@ -110,7 +106,7 @@
                                     <tbody>
                                         @foreach($selectedLoket->riwayat as $antrian)
                                         <tr>
-                                            <td>{{ $antrian->nomor }}</td>
+                                            <td>{{ $antrian->formatted_nomor }}</td>
                                             <td><span class="badge bg-success">Selesai</span></td>
                                             <td>{{ $antrian->updated_at->format('H:i:s') }}</td>
                                         </tr>
@@ -132,7 +128,7 @@
         @endif
     </div>
 
-    <!-- Modal untuk edit nama loket -->
+    <!-- Modal Edit Loket -->
     <div class="modal fade" id="editLoketModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -155,15 +151,11 @@
         </div>
     </div>
 
-    <!-- Include Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Include SweetAlert2 for better notifications -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Include Admin JS -->
     <script src="{{ asset('globaljs/admin.js') }}"></script>
     
     <script>
-        // Start auto refresh if a loket is selected
         @if($selectedLoket)
             setInterval(refreshData, 5000);
         @endif

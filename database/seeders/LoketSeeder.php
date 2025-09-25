@@ -10,18 +10,21 @@ class LoketSeeder extends Seeder
     public function run(): void
     {
         $defaultLokets = [
-            'Loket 1',
-            'Loket 2',
-            'Loket 3',
-            'Loket 4',
-            'Loket 5',
+            ['nama' => 'Loket 1', 'prefix' => 'A'],
+            ['nama' => 'Loket 2', 'prefix' => 'B'],
+            ['nama' => 'Loket 3', 'prefix' => 'C'],
+            ['nama' => 'Loket 4', 'prefix' => 'D'],
+            ['nama' => 'Loket 5', 'prefix' => 'E'],
         ];
 
-        foreach ($defaultLokets as $nama) {
+        foreach ($defaultLokets as $loket) {
             Loket::updateOrCreate(
-                ['nama' => $nama], // cek berdasarkan nama
-                ['nomor_terakhir' => 0] // kalau ada, reset nomor
+                ['nama' => $loket['nama']],
+                [
+                    'nomor_terakhir' => 0,
+                    'kode_prefix' => $loket['prefix']
+                ]
             );
         }
     }
-};
+}
