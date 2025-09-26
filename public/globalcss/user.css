@@ -108,9 +108,9 @@ body.swal2-height-auto {
 .swal2-confirm.swal2-styled {
     background-color: #2c2c2c;
     border: none;
-    padding: 15px 1px;
+    padding: 15px 150px;
     font-size: 18px;
-    border-radius: 8px;
+    border-radius: 9x;
     cursor: pointer;
     width: auto;
     min-width: 120px;
