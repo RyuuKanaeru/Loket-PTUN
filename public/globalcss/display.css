@@ -1,9 +1,9 @@
 /* Variables */
 :root {
-    --bg: #0f1724;
+    --bg: #000000;
     --card: #0b1220;
-    --accent: #ffd166;
-    --text: #ffffff;
+    --accent: #377a37;
+    --text: #000000;
 }
 
 /* Base Styles */
@@ -11,9 +11,31 @@ html,
 body {
     height: 100%;
     margin: 0;
-    background: var(--bg);
+    background: none;
     color: var(--text);
     font-family: Inter, Arial, sans-serif;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    background: url('/img/bgPTUN.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(8px) brightness(0.85);
+    pointer-events: none;
+}
+
+body > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* Layout */
@@ -59,7 +81,7 @@ body {
 
 /* Box Styles */
 .box {
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    background: linear-gradient(180deg, hsl(0, 0%, 100%), rgb(255, 255, 255));
     border-radius: 14px;
     padding: 28px;
     box-shadow: 0 10px 30px rgba(2,6,23,0.6);
