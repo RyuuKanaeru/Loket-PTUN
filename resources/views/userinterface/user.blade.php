@@ -72,7 +72,23 @@
                                     <p class="text-muted">${data.message}</p>`,
                                 icon: 'success',
                                 confirmButtonText: 'OK',
-                                allowOutsideClick: false
+                                allowOutsideClick: false,
+                                scrollbarPadding: false,
+                                heightAuto: false,
+                                width: 'auto',
+                                showClass: {
+                                    popup: 'animate__animated animate__fadeIn'
+                                },
+                                customClass: {
+                                    popup: 'swal2-popup',
+                                    title: 'swal2-title',
+                                    htmlContainer: 'swal2-html-container',
+                                    confirmButton: 'swal2-confirm',
+                                    container: 'swal2-container'
+                                },
+                                showClass: {
+                                    popup: 'animate__animated animate__fadeIn'
+                                }
                             });
                         }
                     })
