@@ -1,8 +1,8 @@
 /* Variables */
 :root {
-    --bg: #000000;
+    --bg: #ffffff;
     --card: #0b1220;
-    --accent: #377a37;
+    --accent: #ffffff;
     --text: #000000;
 }
 
@@ -11,31 +11,8 @@ html,
 body {
     height: 100%;
     margin: 0;
-    background: none;
-    color: var(--text);
+    background: var(--bg);
     font-family: Inter, Arial, sans-serif;
-    position: relative;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    background: url('/img/bgPTUN.jpg') no-repeat center center fixed;
-    background-size: cover;
-    filter: blur(8px) brightness(0.85);
-    pointer-events: none;
-}
-
-body > * {
-    position: relative;
-    z-index: 1;
 }
 
 /* Layout */
@@ -81,7 +58,7 @@ body > * {
 
 /* Box Styles */
 .box {
-    background: linear-gradient(180deg, hsl(0, 0%, 100%), rgb(255, 255, 255));
+    background: linear-gradient(180deg, hsl(0, 0%, 0%), rgb(0, 0, 0));
     border-radius: 14px;
     padding: 28px;
     box-shadow: 0 10px 30px rgba(2,6,23,0.6);
@@ -100,10 +77,11 @@ body > * {
 
 /* Loket and Number Styles */
 .loket-name {
-    font-size: 18px;
+    font-size: 25px;
     opacity: .85;
     margin-bottom: 8px;
     text-align: center;
+    color: #ffffff;
 }
 
 .nomor {
@@ -114,7 +92,7 @@ body > * {
 }
 
 .nomor.empty {
-    color: rgba(255,255,255,0.18);
+    color: rgb(255, 255, 255);
     font-size: 48px;
     font-weight: 600;
 }
