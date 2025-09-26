@@ -34,7 +34,7 @@ class UserInterfaceController extends Controller
 
         return response()->json([
             'success' => true,
-            'nomor' => $antrian->nomor,
+            'nomor' => $antrian->formatted_nomor,
             'loket' => $loket->nama,
             'message' => "Silahkan menunggu nomor antrian anda dipanggil"
         ]);
