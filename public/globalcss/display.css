@@ -1,3 +1,4 @@
+/* Variables */
 :root {
     --bg: #0f1724;
     --card: #0b1220;
@@ -5,7 +6,9 @@
     --text: #ffffff;
 }
 
-html, body {
+/* Base Styles */
+html,
+body {
     height: 100%;
     margin: 0;
     background: var(--bg);
@@ -13,20 +16,25 @@ html, body {
     font-family: Inter, Arial, sans-serif;
 }
 
-/* ===== WRAP & HEADER ===== */
+/* Layout */
 .wrap {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
     padding: 20px;
     box-sizing: border-box;
 }
 
+/* Header Section */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    width: 100%;
+    max-width: 1400px;
 }
 
 .title {
@@ -40,75 +48,56 @@ html, body {
     opacity: .75;
 }
 
-/* ===== CONTENT ===== */
+/* Grid Layout */
 .grid {
     display: grid;
-    grid-template-columns: 2fr 1fr; /* kiri gede, kanan kecil */
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
-    flex: 1;
+    width: 100%;
+    max-width: 1400px;
 }
 
-/* Box utama (loket aktif) */
-.big-box {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 40px;
+/* Box Styles */
+.box {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    min-height: 220px;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.box.highlight {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+}
+
+/* Loket and Number Styles */
+.loket-name {
+    font-size: 18px;
+    opacity: .85;
+    margin-bottom: 8px;
     text-align: center;
 }
 
-.big-box .nomor {
-    font-size: 120px;
-    font-weight: 900;
+.nomor {
+    font-size: 86px;
+    font-weight: 800;
     color: var(--accent);
-    text-shadow: 0 0 20px rgba(255,209,102,0.6);
+    letter-spacing: 2px;
 }
 
-.big-box .loket-name {
-    font-size: 28px;
-    margin-top: 12px;
-    opacity: 0.9;
+.nomor.empty {
+    color: rgba(255,255,255,0.18);
+    font-size: 48px;
+    font-weight: 600;
 }
 
-/* Daftar loket lain */
-.side-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.side-item {
-    background: rgba(255,255,255,0.05);
-    border-radius: 12px;
-    padding: 16px;
-    font-size: 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: transform .2s ease, box-shadow .2s ease;
-}
-
-.side-item.highlight {
-    transform: translateY(-4px);
-    box-shadow: 0 0 20px rgba(255,209,102,0.5);
-    border: 1px solid var(--accent);
-}
-
-/* ===== FOOTER ===== */
-.footer {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 20px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-}
-
-/* ===== Controls ===== */
+/* Controls */
 .controls {
     display: flex;
     gap: 10px;
@@ -117,28 +106,39 @@ html, body {
 
 .btn {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255,255,255,0.12);
     padding: 8px 12px;
     border-radius: 8px;
     color: var(--text);
     cursor: pointer;
+    transition: background-color .2s ease;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 1000px) {
+.btn:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+/* Responsive Design */
+@media (max-width: 1100px) {
     .grid {
-        grid-template-columns: 1fr; /* stack */
+        grid-template-columns: repeat(3, 1fr);
     }
-    .big-box .nomor {
-        font-size: 80px;
+    
+    .nomor {
+        font-size: 64px;
     }
 }
 
-@media (max-width: 600px) {
-    .big-box .nomor {
-        font-size: 60px;
+@media (max-width: 700px) {
+    .grid {
+        grid-template-columns: repeat(1, 1fr);
     }
-    .side-item {
-        font-size: 18px;
+    
+    .nomor {
+        font-size: 48px;
+    }
+    
+    .wrap {
+        padding: 12px;
     }
 }
