@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoketAdminController;
 use App\Http\Controllers\UserInterfaceController;
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\OperatorController;
 
 // Redirect home to user interface
 Route::get('/', [UserInterfaceController::class, 'index'])->name('home');
@@ -29,3 +30,10 @@ Route::prefix('admin')->group(function () {
 // Display routes
 Route::get('/display', [DisplayController::class, 'index'])->name('display.index');
 Route::get('/display/data', [DisplayController::class, 'data'])->name('display.data');
+
+Route::prefix('operator')->group(function () {
+    Route::get('/', [OperatorController::class, 'dashboard'])->name('operator.dashboard');
+    Route::get('/detail/{id}', [OperatorController::class, 'detail'])->name('operator.detail');
+    Route::get('/backup', [OperatorController::class, 'backupPDF'])->name('operator.backup');
+    Route::post('/reset', [OperatorController::class, 'resetAll'])->name('operator.reset');
+});
