@@ -31,6 +31,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/display', [DisplayController::class, 'index'])->name('display.index');
 Route::get('/display/data', [DisplayController::class, 'data'])->name('display.data');
 
+// Operator routes
 Route::prefix('operator')->group(function () {
     Route::get('/', [OperatorController::class, 'dashboard'])->name('operator.dashboard');
     Route::get('/detail/{id}', [OperatorController::class, 'detail'])->name('operator.detail');

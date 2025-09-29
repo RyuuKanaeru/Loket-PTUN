@@ -2,28 +2,17 @@ body {
     margin: 0;
     height: 100vh;
     overflow-x: hidden;
-    background: linear-gradient(135deg, #e0e0e0, #cfcfcf, #f5f5f5);
-    color: #2c2c2c; /* teks default abu-abu tua */
+    background: linear-gradient(135deg, #d4f8e8, #a9e5bb, #f0fff4); /* hijau pastel fresh */
+    color: #2c2c2c;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-body.swal2-shown {
-    padding-right: 0 !important;
-}
-
-body.swal2-height-auto {
-    height: 100vh !important;
-}
-
-/* Prevent content shift */
-.swal2-container {
-    padding: 0 !important;
-}
-
+/* Loket Button */
 .loket-button {
     background: #ffffff;
-    border: 2px solid #d1d1d1;
+    border: 2px solid #a9e5bb;
     border-radius: 20px;
-    padding: 50px;
+    padding: 40px;
     text-align: center;
     cursor: pointer;
     min-height: 200px;
@@ -34,106 +23,83 @@ body.swal2-height-auto {
 }
 
 .loket-button h3 {
-    font-size: 32px;
-    margin-bottom: 25px;
-    color: #2c2c2c; /* abu-abu tua */
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #2c2c2c;
 }
 
 .loket-button button {
-    font-size: 22px;
-    padding: 15px 40px;
+    font-size: 20px;
+    padding: 12px 35px;
     border-radius: 10px;
     border: none;
-    background-color: #2c2c2c; /* tombol hitam abu tua */
-    color: #fff; /* teks putih */
+    background-color: #28a745; /* hijau utama */
+    color: #fff;
     transition: background 0.3s ease;
 }
 
 .loket-button button:hover {
-    background-color: #555; /* hover abu lebih terang */
+    background-color: #218838; /* hijau lebih gelap */
 }
 
 .loket-button:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0, 128, 0, 0.2);
 }
 
-/* SweetAlert2 Custom Styling */
+/* SweetAlert2 */
 .swal2-popup {
     padding: 1.5em;
     border-radius: 15px;
-    position: fixed;
-    top: 30% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    margin: 0 !important;
-    max-height: none !important;
-    overflow: hidden !important;
-    background-color: #fff;
-    color: #2c2c2c;
-}
-
-.swal2-container {
-    position: fixed !important;
-    backdrop-filter: blur(5px);
-    overflow: hidden !important;
-}
-
-.swal2-title {
-    font-size: 20px !important;
-    margin: 0 0 10px 0 !important;
-    padding: 0 !important;
+    background-color: #f9fff9;
+    border: 2px solid #a9e5bb;
     color: #2c2c2c;
 }
 
 .swal-number {
     font-size: 72px;
     font-weight: bold;
-    color: #2c2c2c; /* nomor antrian hitam */
-    margin: 10px 0;
-    line-height: 1;
+    color: #28a745;
 }
-
-.swal2-html-container {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.swal2-html-container p {
-    margin: 5px 0 !important;
-    font-size: 16px;
-    color: #555;
-}
-
 .swal2-confirm.swal2-styled {
-    background-color: #2c2c2c;
-    border: none;
-    padding: 15px 150px;
-    font-size: 18px;
-    border-radius: 9x;
-    cursor: pointer;
-    width: auto;
-    min-width: 120px;
-    margin-top: 15px;
-    color: #fff;
+    background-color: #28a745;
+    border-radius: 8px;
+    padding: 25px 200px;
 }
-
 .swal2-confirm.swal2-styled:hover {
-    background-color: #555;
+    background-color: #218838;
 }
 
-/* Override Bootstrap btn-primary */
-.btn-primary {
-    background-color: #2c2c2c !important; /* abu tua / hitam */
-    color: #fff !important;              /* teks putih */
-    border: none !important;
-    border-radius: 10px !important;
-    font-size: 22px !important;
-    padding: 15px 40px !important;
-    transition: background 0.3s ease, color 0.3s ease;
+.header-bar {
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2); /* transparan putih tipis */
+    backdrop-filter: blur(10px);          /* efek kaca */
+    -webkit-backdrop-filter: blur(10px);  /* safari support */
+    color: #2c2c2c;                       /* teks jadi gelap */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* logo + teks rata kiri */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    position: sticky; /* biar nempel di atas */
+    top: 0;
+    z-index: 1000;
 }
 
-.btn-primary:hover {
-    background-color: #555 !important;   /* abu sedang */
-    color: #fff !important;
+.header-bar img {
+    height: 40px;
+    margin-right: 15px;
 }
+
+.header-bar h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+    color: #212529;
+    border-bottom: 2px solid #28a745; /* underline hijau */
+    padding-bottom: 2px;
+    display: inline-block; /* biar underline pas sama teks */
+}
+
+
+
