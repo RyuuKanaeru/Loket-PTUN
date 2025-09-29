@@ -9,24 +9,42 @@
 <body>
     <div class="wrap">
         <div class="header">
-            <div class="title">Display Antrian</div>
-            <div style="display:flex; gap:16px; align-items:center;">
-                <div class="last-updated" id="lastUpdated">—</div>
-                <div class="controls" id="controls">
-                    <button class="btn" id="toggleVoice">Voice: Off</button>
-                    <button class="btn" id="forceRefresh">Refresh</button>
-                </div>
+            <div class="title">
+                <img src="{{ asset('img/PTUN logo remove.png') }}" alt="PTUN Logo" class="logo">
+                Display Antrian PTUN Bandung
+            </div>
+            <div class="controls" id="controls">
+                <button class="btn" id="toggleVoice">Voice: Off</button>
             </div>
         </div>
 
-        <div class="grid" id="grid">
-            {{-- Optional initial items for progressive enhancement --}}
-            @foreach($lokets as $loket)
-                <div class="box" data-loket-id="{{ $loket->id }}">
-                    <div class="loket-name">{{ $loket->nama }}</div>
-                    <div class="nomor empty">-</div>
+        <div class="grid">
+            <div class="loket-container">
+                <div class="loket-left" id="loket-group">
+                    @foreach($lokets->take(3) as $loket)
+                        <div class="box" data-loket-id="{{ $loket->id }}">
+                            <div class="loket-name">{{ $loket->nama }}</div>
+                            <div class="nomor empty">-</div>
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
+                <div class="loket-right">
+                    @foreach($lokets->skip(3)->take(2) as $loket)
+                        <div class="box" data-loket-id="{{ $loket->id }}">
+                            <div class="loket-name">{{ $loket->nama }}</div>
+                            <div class="nomor empty">-</div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="video-container">
+                <video id="displayVideo" autoplay loop muted>
+                    <source src="{{ asset('videos/ptun-video.mp4') }}" type="video/mp4">
+                    <!-- Tambahkan format video lain jika diperlukan -->
+                    <source src="{{ asset('videos/ptun-video.webm') }}" type="video/webm">
+                    Browser Anda tidak mendukung tag video.
+                </video>
+            </div>
         </div>
     </div>
 
@@ -34,10 +52,8 @@
 (() => {
     const DATA_URL = "{{ route('display.data') }}"; // endpoint untuk polling
     const POLL_INTERVAL = 3000; // ms
-    const grid = document.getElementById('grid');
-    const lastUpdated = document.getElementById('lastUpdated');
+    const loketGroup = document.getElemengittById('loket-group');
     const toggleVoiceBtn = document.getElementById('toggleVoice');
-    const forceRefreshBtn = document.getElementById('forceRefresh');
 
     // store current shown numbers to detect perubahan
     const current = {};
@@ -48,7 +64,7 @@
         toggleVoiceBtn.textContent = voiceEnabled ? 'Voice: On' : 'Voice: Off';
     });
 
-    forceRefreshBtn.addEventListener('click', fetchAndRender);
+    // Auto refresh handling is done via setInterval
 
     function speak(text) {
         if (!voiceEnabled) return;
@@ -65,7 +81,7 @@
     }
 
     function findBoxById(id) {
-        return grid.querySelector(`.box[data-loket-id="${id}"]`);
+        return document.querySelector(`.box[data-loket-id="${id}"]`);
     }
 
     function renderLokets(lokets) {
@@ -119,10 +135,8 @@
             const json = await res.json();
             const lokets = json.lokets || [];
             renderLokets(lokets);
-            lastUpdated.textContent = 'Terakhir: ' + (json.timestamp || new Date().toLocaleTimeString());
         } catch (err) {
             console.error('Fetch error', err);
-            lastUpdated.textContent = 'Terakhir: gagal mengambil data';
         }
     }
 
@@ -130,12 +144,10 @@
     fetchAndRender();
     setInterval(fetchAndRender, POLL_INTERVAL);
 
-    // keyboard shortcuts (optional): tekan "v" utk toggle voice
+    // keyboard shortcuts: tekan "v" utk toggle voice
     window.addEventListener('keydown', (e) => {
         if (e.key.toLowerCase() === 'v') {
             toggleVoiceBtn.click();
-        } else if (e.key.toLowerCase() === 'r') {
-            forceRefreshBtn.click();
         }
     });
 })();

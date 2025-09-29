@@ -1,9 +1,12 @@
 /* Variables */
 :root {
-    --bg: #ffffff;
-    --card: #0b1220;
+    --bg: #f0f7f0;
+    --primary: #2E7D32;
+    --secondary: #1B5E20;
     --accent: #ffffff;
-    --text: #000000;
+    --text-light: #ffffff;
+    --text-dark: #1a1a1a;
+    --shadow: rgba(0, 77, 0, 0.15);
 }
 
 /* Base Styles */
@@ -12,19 +15,39 @@ body {
     height: 100%;
     margin: 0;
     background: var(--bg);
+    background-image: url('../img/bgPTUN.jpg');
+    background-size: cover;
+    background-position: center;
     font-family: Inter, Arial, sans-serif;
+    color: var(--text-dark);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(27, 94, 32, 0.9);
+    z-index: 0;
 }
 
 /* Layout */
 .wrap {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    padding: 20px;
+    gap: 30px;
+    padding: 40px;
     box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
 }
 
 /* Header Section */
@@ -34,40 +57,151 @@ body {
     align-items: center;
     width: 100%;
     max-width: 1400px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px 30px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 .title {
     font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: auto;
+}
+
+.logo {
+    height: 45px;
+    width: auto;
 }
 
 .last-updated {
     font-size: 14px;
-    opacity: .75;
+    color: var(--text-light);
+    opacity: .9;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 6px;
 }
 
-/* Grid Layout */
+/* Main Layout */
 .grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    grid-template-columns: auto auto;
+    gap: 15px;
     width: 100%;
-    max-width: 1400px;
+    max-width: 1000px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+
+/* Loket Grid */
+.loket-container {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    padding-top: 20px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.loket-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 4px;
+    margin-top: -10px;
+}
+
+.loket-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 4px;
+    margin-top: 15px;
+}
+
+/* Position box 4 and 5 with specific margins */
+.loket-right .box:nth-child(1) {
+    margin-top: 45px;  /* Align between box 1 and 2 */
+}
+
+.loket-right .box:nth-child(2) {
+    margin-top: 45px;  /* Align between box 2 and 3 */
+}
+
+/* Video Container */
+.video-container {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    aspect-ratio: 1/1;
+    width: 450px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    margin: 0;
+    margin-left: auto;
+}
+
+/* Video Styling */
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Fallback ketika video tidak ada */
+.video-container:empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 14px;
+    padding: 20px;
+    text-align: center;
 }
 
 /* Box Styles */
 .box {
-    background: linear-gradient(180deg, #2c2c2c, rgb(0, 0, 0));
-    border-radius: 14px;
-    padding: 28px;
-    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 220px;
-    transition: transform .25s ease, box-shadow .25s ease;
+    width: 130px;
+    height: 85px;
+    transition: transform .2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px var(--shadow);
 }
 
 .box.highlight {
@@ -77,65 +211,96 @@ body {
 
 /* Loket and Number Styles */
 .loket-name {
-    font-size: 25px;
-    opacity: .85;
-    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
     text-align: center;
-    color: #ffffff;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 3px 8px;
+    border-radius: 4px;
 }
 
 .nomor {
-    font-size: 86px;
+    font-size: 32px;
     font-weight: 800;
     color: var(--accent);
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .nomor.empty {
-    color: rgb(255, 255, 255);
-    font-size: 48px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 32px;
     font-weight: 600;
+}
+
+.box.highlight {
+    animation: highlight 1s ease;
+    background: rgba(46, 125, 50, 0.6);
+}
+
+@keyframes highlight {
+    0% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.05); filter: brightness(1.2); }
+    100% { transform: scale(1); filter: brightness(1); }
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Controls */
 .controls {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
 }
 
 .btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
     border-radius: 8px;
-    color: var(--text);
+    color: var(--text-light);
     cursor: pointer;
-    transition: background-color .2s ease;
+    transition: all .2s ease;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
 }
 
 .btn:hover {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Design */
 @media (max-width: 1100px) {
     .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .loket-container {
         grid-template-columns: repeat(3, 1fr);
     }
-    
-    .nomor {
-        font-size: 64px;
+
+    .box:nth-child(4),
+    .box:nth-child(5) {
+        margin-left: 0;
     }
 }
 
 @media (max-width: 700px) {
-    .grid {
-        grid-template-columns: repeat(1, 1fr);
-    }
-    
-    .nomor {
-        font-size: 48px;
+    .loket-container {
+        grid-template-columns: repeat(2, 1fr);
     }
     
     .wrap {
