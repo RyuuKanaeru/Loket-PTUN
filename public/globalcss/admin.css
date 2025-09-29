@@ -4,7 +4,7 @@
         }
         .sidebar {
             width: 280px;
-            background: #2c3e50;
+            background:#2c2c2c;
             min-height: 100vh;
             position: fixed;
             left: 0;
@@ -25,8 +25,8 @@
         }
         .sidebar-link:hover,
         .sidebar-link.active {
-            background: #34495e;
-            border-left-color: #3498db;
+            background: #636363;
+            border-left-color: #ffffff;
             color: white;
         }
         .current-number {

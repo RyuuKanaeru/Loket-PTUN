@@ -58,7 +58,7 @@ body {
 
 /* Box Styles */
 .box {
-    background: linear-gradient(180deg, hsl(0, 0%, 0%), rgb(0, 0, 0));
+    background: linear-gradient(180deg, #2c2c2c, rgb(0, 0, 0));
     border-radius: 14px;
     padding: 28px;
     box-shadow: 0 10px 30px rgba(2,6,23,0.6);
