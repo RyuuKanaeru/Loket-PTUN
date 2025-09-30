@@ -39,9 +39,9 @@
             </div>
             <div class="video-container">
                 <video id="displayVideo" autoplay loop muted>
-                    <source src="{{ asset('videos/ptun-video.mp4') }}" type="video/mp4">
+                    <source src="{{ asset('video/vidio.mp4') }}" type="video/mp4">
                     <!-- Tambahkan format video lain jika diperlukan -->
-                    <source src="{{ asset('videos/ptun-video.webm') }}" type="video/webm">
+                    <source src="{{ asset('video/vidio.mp4') }}" type="video/webm">
                     Browser Anda tidak mendukung tag video.
                 </video>
             </div>

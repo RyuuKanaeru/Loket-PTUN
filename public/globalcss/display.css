@@ -1,309 +1,203 @@
+/* display.css - Layout: 5 loket di bar atas, video besar di bawah */
+
 /* Variables */
-:root {
-    --bg: #f0f7f0;
-    --primary: #2E7D32;
-    --secondary: #1B5E20;
+:root{
+    --bg: #f3f7f3;
+    --primary: #2e7d32;    /* hijau PTUN */
     --accent: #ffffff;
-    --text-light: #ffffff;
-    --text-dark: #1a1a1a;
-    --shadow: rgba(0, 77, 0, 0.15);
+    --text-dark: #0f1720;
+    --muted: rgba(15,23,32,0.06);
+    --glass: rgba(255,255,255,0.85);
+    --card-shadow: 0 6px 20px rgba(16,24,32,0.08);
+    --gap: 18px;
+    --max-width: 1400px;
 }
 
-/* Base Styles */
-html,
-body {
-    height: 100%;
-    margin: 0;
-    background: var(--bg);
-    background-image: url('../img/bgPTUN.jpg');
-    background-size: cover;
-    background-position: center;
-    font-family: Inter, Arial, sans-serif;
-    color: var(--text-dark);
-    position: relative;
+/* Reset / Base */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--text-dark);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+/* Page wrapper */
+.wrap{
+    width:100%;
+    max-width:var(--max-width);
+    margin:24px auto;
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    align-items:center;
 }
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(27, 94, 32, 0.9);
-    z-index: 0;
+/* Header - clean & flat */
+.header{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:6px 12px;
+}
+.title{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-weight:700;
+    font-size:22px;
+    color:var(--primary);
+    text-transform:uppercase;
+    letter-spacing:0.6px;
+}
+.logo{height:48px;width:auto;display:block}
+
+/* Controls */
+.controls{display:flex;gap:10px;align-items:center}
+.btn{
+    background:transparent;
+    border:1px solid rgba(0,0,0,0.06);
+    padding:8px 12px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+    min-width:96px;
+    text-align:center;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--card-shadow)}
+
+/* Main container - vertical (top bar of loket, then video) */
+.grid{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:var(--gap);
+    align-items:stretch;
 }
 
-/* Layout */
-.wrap {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    padding: 40px;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 1;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+/* Loket bar: make top row with 5 equal boxes
+   We use display:grid on container and set display:contents
+   on intermediate wrappers so .box elements behave as direct children */
+.loket-container{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap:calc(var(--gap) / 2);
+    width:100%;
+    align-items:start;
 }
 
-/* Header Section */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1400px;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 15px 30px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+/* allow nested wrappers (.loket-left / .loket-right) to be transparent to grid */
+.loket-container > .loket-left,
+.loket-container > .loket-right{
+    display:contents;
 }
 
-.title {
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--text-light);
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-right: auto;
+/* Box styles (loket) */
+.box{
+    background: var(--glass);
+    border-radius:12px;
+    padding:18px 14px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:96px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(46,125,50,0.12);
+    transition: transform .18s ease, box-shadow .18s ease;
+    text-align:center;
+}
+.box:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(16,24,32,0.12)}
+
+/* Loket name + nomor */
+.loket-name{
+    font-size:14px;
+    font-weight:700;
+    color:var(--primary);
+    text-transform:uppercase;
+    letter-spacing:0.6px;
+    margin-bottom:6px;
+}
+.nomor{
+    font-size:36px;
+    font-weight:800;
+    color:var(--text-dark);
+    line-height:1;
+}
+.nomor.empty{color:rgba(0,0,0,0.3);font-weight:700}
+
+/* Highlight animation when nomor berubah */
+.box.highlight{
+    animation: pulse 900ms ease;
+    border-color: var(--primary);
+    box-shadow: 0 20px 50px rgba(46,125,50,0.12);
+}
+@keyframes pulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.04)}
+    100%{transform:scale(1)}
 }
 
-.logo {
-    height: 45px;
-    width: auto;
-}
-
-.last-updated {
-    font-size: 14px;
-    color: var(--text-light);
-    opacity: .9;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 6px 12px;
-    border-radius: 6px;
-}
-
-/* Main Layout */
-.grid {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 15px;
+/* video nya ada 2 versi tampilan */
+/*video v1 (ga ke crop tapi ngk pass di layar)*/
+.video-container {
     width: 100%;
     max-width: 1000px;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    align-items: center;
-}
-
-/* Loket Grid */
-.loket-container {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-    padding-top: 20px;
-    align-items: flex-start;
-    justify-content: center;
-}
-
-.loket-left {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-right: 4px;
-    margin-top: -10px;
-}
-
-.loket-right {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-left: 4px;
-    margin-top: 15px;
-}
-
-/* Position box 4 and 5 with specific margins */
-.loket-right .box:nth-child(1) {
-    margin-top: 45px;  /* Align between box 1 and 2 */
-}
-
-.loket-right .box:nth-child(2) {
-    margin-top: 45px;  /* Align between box 2 and 3 */
-}
-
-/* Video Container */
-.video-container {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-    aspect-ratio: 1/1;
-    width: 450px;
+    margin: 0 auto;
+    background: #000;
+    border-radius: 14px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-    margin: 0;
-    margin-left: auto;
+    max-height: 65vh;
+    border: 2px solid rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--card-shadow);
+}
+.video-container video {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto;
+    background: #000;
+    display: block;
+    object-fit: contain;
 }
 
-/* Video Styling */
+/* video v2 (fit dan pas di layar tapi ke crop) */
+/* .video-container {
+    width: 100%;
+    height: 65vh;
+    margin: 0 auto;
+    background: #000;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--card-shadow);
+}
+
 .video-container video {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    position: absolute;
-    top: 0;
-    left: 0;
+    object-fit: cover;
+    display: block;
+} */
+
+
+/* Small screen responsiveness */
+@media (max-width: 1100px){
+    .loket-container{grid-template-columns: repeat(3, 1fr)}
+    .loket-container > .loket-left,
+    .loket-container > .loket-right{display:contents}
 }
 
-/* Fallback ketika video tidak ada */
-.video-container:empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-light);
-    font-size: 14px;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Box Styles */
-.box {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 130px;
-    height: 85px;
-    transition: transform .2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-}
-
-.box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-}
-
-.box:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px var(--shadow);
-}
-
-.box.highlight {
-    transform: translateY(-8px);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
-}
-
-/* Loket and Number Styles */
-.loket-name {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    text-align: center;
-    color: var(--text-light);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 3px 8px;
-    border-radius: 4px;
-}
-
-.nomor {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--accent);
-    letter-spacing: 1px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.nomor.empty {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 32px;
-    font-weight: 600;
-}
-
-.box.highlight {
-    animation: highlight 1s ease;
-    background: rgba(46, 125, 50, 0.6);
-}
-
-@keyframes highlight {
-    0% { transform: scale(1); filter: brightness(1); }
-    50% { transform: scale(1.05); filter: brightness(1.2); }
-    100% { transform: scale(1); filter: brightness(1); }
-}
-
-.box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-    background: rgba(0, 0, 0, 0.5);
-}
-
-/* Controls */
-.controls {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 8px 16px;
-    border-radius: 8px;
-    color: var(--text-light);
-    cursor: pointer;
-    transition: all .2s ease;
-    font-weight: 500;
-    text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 0.5px;
-}
-
-.btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive Design */
-@media (max-width: 1100px) {
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .loket-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .box:nth-child(4),
-    .box:nth-child(5) {
-        margin-left: 0;
-    }
-}
-
-@media (max-width: 700px) {
-    .loket-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .wrap {
-        padding: 12px;
-    }
+@media (max-width: 700px){
+    .wrap{padding:12px}
+    .title{font-size:18px}
+    .loket-container{grid-template-columns: repeat(2, 1fr); gap:12px}
+    .box{min-height:84px;padding:12px}
+    .nomor{font-size:28px}
+    .video-container{aspect-ratio: 16/9; max-height:50vh}
 }
