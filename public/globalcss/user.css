@@ -2,16 +2,16 @@ body {
     margin: 0;
     height: 100vh;
     overflow-x: hidden;
-    background: linear-gradient(135deg, #d4f8e8, #a9e5bb, #f0fff4); /* hijau pastel fresh */
+    background-color: #f9fafb; /* soft grey bg */
     color: #2c2c2c;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', 'Segoe UI', sans-serif; /* clean modern font */
 }
 
 /* Loket Button */
 .loket-button {
     background: #ffffff;
-    border: 2px solid #a9e5bb;
-    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
     padding: 40px;
     text-align: center;
     cursor: pointer;
@@ -20,74 +20,91 @@ body {
     flex-direction: column;
     justify-content: center;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04); /* soft shadow */
 }
 
 .loket-button h3 {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 20px;
     color: #2c2c2c;
+    font-weight: 600;
 }
 
 .loket-button button {
-    font-size: 20px;
-    padding: 12px 35px;
+    font-size: 18px;
+    padding: 12px 28px;
     border-radius: 10px;
     border: none;
-    background-color: #28a745; /* hijau utama */
+    background: linear-gradient(135deg, #1b471de6, #1b471de6); /* gradient hijau */
     color: #fff;
-    transition: background 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(46, 204, 113, 0.3);
 }
 
 .loket-button button:hover {
-    background-color: #218838; /* hijau lebih gelap */
+    background: linear-gradient(135deg, #328736e6, #69c36de6);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(39, 174, 96, 0.4);
 }
 
 .loket-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 128, 0, 0.2);
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* SweetAlert2 */
 .swal2-popup {
     padding: 1.5em;
     border-radius: 15px;
-    background-color: #f9fff9;
-    border: 2px solid #a9e5bb;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
     color: #2c2c2c;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
 .swal-number {
     font-size: 72px;
     font-weight: bold;
-    color: #28a745;
-}
-.swal2-confirm.swal2-styled {
-    background-color: #28a745;
-    border-radius: 8px;
-    padding: 25px 200px;
-}
-.swal2-confirm.swal2-styled:hover {
-    background-color: #218838;
+    color: #27ae60;
+    letter-spacing: 2px;
 }
 
+.swal2-confirm.swal2-styled {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    border-radius: 10px;
+    padding: 18px 100px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(46, 204, 113, 0.3);
+}
+.swal2-confirm.swal2-styled:hover {
+    background: linear-gradient(135deg, #27ae60, #219150);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(39, 174, 96, 0.4);
+}
+
+/* Header */
 .header-bar {
     width: 100%;
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.2); /* transparan putih tipis */
-    backdrop-filter: blur(10px);          /* efek kaca */
-    -webkit-backdrop-filter: blur(10px);  /* safari support */
-    color: #2c2c2c;                       /* teks jadi gelap */
+    padding: 12px 24px;
+    background: #1b471de6; /* hijau tua transparan */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #ffffff;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* logo + teks rata kiri */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    position: sticky; /* biar nempel di atas */
+    justify-content: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: sticky;
     top: 0;
     z-index: 1000;
 }
 
 .header-bar img {
-    height: 40px;
+    height: 42px;
     margin-right: 15px;
 }
 
@@ -95,11 +112,7 @@ body {
     font-size: 20px;
     margin: 0;
     font-weight: 600;
-    color: #212529;
-    border-bottom: 2px solid #28a745; /* underline hijau */
+    color: #ffffff;
     padding-bottom: 2px;
-    display: inline-block; /* biar underline pas sama teks */
+    display: inline-block;
 }
-
-
-

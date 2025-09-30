@@ -18,9 +18,8 @@
         <!-- Header dengan Logo di kiri -->
         <div class="header-bar">
             <img src="{{ asset('img/PTUN logo remove.png') }}" alt="Logo PTUN">
-            <h1>PTUN - Ambil Nomor Antrian</h1>
+            <h1>Pengadilan Tata Usaha Negara Bandung</h1>
         </div>
-
 
     <!-- Konten Utama -->
     <div class="container-fluid flex-grow-1 d-flex flex-column justify-content-center align-items-center">
