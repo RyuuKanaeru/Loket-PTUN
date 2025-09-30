@@ -52,7 +52,7 @@
 (() => {
     const DATA_URL = "{{ route('display.data') }}"; // endpoint untuk polling
     const POLL_INTERVAL = 3000; // ms
-    const loketGroup = document.getElemengittById('loket-group');
+    const loketGroup = document.getElementById('loket-group');
     const toggleVoiceBtn = document.getElementById('toggleVoice');
 
     // store current shown numbers to detect perubahan
