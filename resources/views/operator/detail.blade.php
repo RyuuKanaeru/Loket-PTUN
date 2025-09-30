@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Detail Loket</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-        th { background: #f3f3f3; }
-        a { text-decoration: none; color: blue; }
-    </style>
+    <link rel="stylesheet" href="{{ asset('globalcss/operator-detail.css') }}">
 </head>
 <body>
     <h1>Detail Loket: {{ $loket->nama }}</h1>

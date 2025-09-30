@@ -3,21 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Dashboard Operator</title>
-    <style>
-        body { font-family: Arial, sans-serif; background:#f5f7fa; margin:0; padding:20px; }
-        h1 { margin-bottom:20px; }
-        table { width:100%; border-collapse: collapse; background: white; }
-        th, td { padding: 10px; border:1px solid #ccc; text-align:center; }
-        th { background:#222; color:white; }
-        a.button, button {
-            display:inline-block; padding:8px 12px; margin:5px;
-            background:#007bff; color:#fff; text-decoration:none;
-            border-radius:4px; border:none; cursor:pointer;
-        }
-        .danger { background:#dc3545 !important; }
-        .success { background: #28a745 !important; }
-        .top-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
-    </style>
+    <link rel="stylesheet" href="{{ asset('globalcss/operator-dashboard.css') }}">
 </head>
 <body>
 

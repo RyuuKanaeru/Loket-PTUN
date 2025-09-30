@@ -20,7 +20,7 @@
             <img src="{{ asset('img/PTUN logo remove.png') }}" alt="Logo PTUN">
             <h1>Pengadilan Tata Usaha Negara Bandung</h1>
         </div>
-
+    <h1 class="main-title-user">Silahkan Ambil Nomor Antrian Anda</h1>
     <!-- Konten Utama -->
     <div class="container-fluid flex-grow-1 d-flex flex-column justify-content-center align-items-center">
 
